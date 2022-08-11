@@ -1,0 +1,58 @@
+<%- include ('partials/header.ejs'); %>
+
+    <%- include ('partials/navbar.ejs'); %>  
+
+    <div class="container p-4">
+        <h1 class="title">Pergunta</h1>
+        <hr>
+        <div class="card">
+            <div class="card-header">
+                <h3><%= pergunta.titulo %></h3>
+            </div>
+            <div class="card-body">
+                <p class="title">
+                    <%= pergunta.descricao %> 
+                </p>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Responder</button>
+            </div>
+        </div>
+        <hr>
+        <h1>Respostas</h1>
+        <hr>
+        <% respostas.forEach(resposta=>{ %>
+        <div class="card">
+            <div class="card-body">
+                <p><%= resposta.corpo %> </p>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Digite sua resposta</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="/salvaresposta" method="POST">
+                    <div class="form-group">
+                       <textarea placeholder="Resposta..." name="corpo" id="corpo" class="form-control" cols="30" rows="10"></textarea>
+                       <input type="hidden" name="idpergunta" value="<%= pergunta.id %>" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<%- include ('partials/footer.ejs'); %>
+
